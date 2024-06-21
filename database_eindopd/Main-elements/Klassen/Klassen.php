@@ -12,6 +12,9 @@ class Klassen {
         // Prepare SQL statement
         return $this->db->exec("INSERT INTO klassen (naam, mentor_id) VALUES (?, ?)", [$naam, $mentor_id]);
     }
+    
+
+
 
     public function selectKlassen() {
         return $this->db->exec("SELECT * FROM klassen")->fetchAll(PDO::FETCH_ASSOC);
