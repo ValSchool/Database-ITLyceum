@@ -8,10 +8,9 @@ class Docent {
         $this->db = $db;
     }
     public function insertDocent($naam, $email, $password) {
-        // Hash the password
+       
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-        // Prepare SQL statement
         return $this->db->exec("INSERT INTO gebruikers (naam, email, password, rol) VALUES (?, ?, ?, 'docent')", [$naam, $email, $hashedPassword]);
     }
     
