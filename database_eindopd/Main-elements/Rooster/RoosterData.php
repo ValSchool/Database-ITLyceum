@@ -16,7 +16,7 @@ $allKlassen = $klassen->selectKlassen();
 
 // Initialize $klas_id if needed, for example from a GET parameter or session
 $klas_id = isset($_GET['klas_id']) ? $_GET['klas_id'] : (isset($_SESSION['klas_id']) ? $_SESSION['klas_id'] : null);
-
+$naam = isset($_GET['naam ']) ? $_GET['naam '] : (isset($_SESSION['naam ']) ? $_SESSION['naam '] : null);
 // Handle form submission for adding a new schedule
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addRooster'])) {
     $klas_id = $_POST['klas_id'];
@@ -96,23 +96,24 @@ if ($klas_id) {
             <h1>Rooster Management</h1>
             
             <?php if ($klas_id): ?>
-                <h2>Current Roosters for Class ID: <?php echo htmlspecialchars($klas_id); ?></h2>
-                <!-- Week Navigation -->
-                <div class="mb-3">
-                    <form class="form-inline">
-                        <label class="my-1 mr-2" for="weeknummer">Select Week:</label>
-                        <select class="custom-select my-1 mr-sm-2" id="weeknummer" name="weeknummer" onchange="this.form.submit()">
-                            <?php
-                            // Generate options for weeks
-                            for ($i = 1; $i <= 52; $i++) {
-                                $selected = ($weeknummer == $i) ? 'selected' : '';
-                                echo "<option value='$i' $selected>Week $i</option>";
-                            }
-                            ?>
-                        </select>
-                        <button type="submit" class="btn btn-primary my-1">Go</button>
-                    </form>
-                </div>
+    <h2>Current Roosters for Class ID: <?php echo htmlspecialchars($klas_id); ?></h2>
+
+    <!-- Week Navigation -->
+    <div class="mb-3">
+        <form class="form-inline" method="GET" action="process_form.php">
+            <label class="my-1 mr-2" for="weeknummer">Select Week:</label>
+            <select class="custom-select my-1 mr-sm-2" id="weeknummer" name="weeknummer" onchange="this.form.submit()">
+                <?php
+                // Generate options for weeks
+                for ($i = 1; $i <= 52; $i++) {
+                    $selected = ($weeknummer == $i) ? 'selected' : '';
+                    echo "<option value='$i' $selected>Week $i</option>";
+                }
+                ?>
+            </select>
+            <button type="submit" class="btn btn-primary my-1">Go</button>
+        </form>
+    </div>
 
                 <div class="row">
                     <div class="col-md-3">
