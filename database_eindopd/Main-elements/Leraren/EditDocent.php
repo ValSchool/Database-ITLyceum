@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editDocent'])) {
     $gebruiker_id = $_POST['gebruiker_id'];
     $naam = !empty($_POST['naam']) ? $_POST['naam'] : null;
     $email = !empty($_POST['email']) ? $_POST['email'] : null;
+    $klas = !empty($_POST['klas']) ? $_POST['klas'] : null;
     $password = !empty($_POST['password']) ? $_POST['password'] : null;
-    $docent->editDocent($gebruiker_id, $naam, $email, $password);
+    $docent->editDocent($gebruiker_id, $naam, $email, $klas, $password);
     header("Location: DocentData.php"); // Redirect back to the main page
     exit();
 }
@@ -46,7 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editDocent'])) {
             <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($docentData['email']); ?>">
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="klas">Klas</label>
+            <input type="text" class="form-control" id="klas" name="klas" value="<?php echo htmlspecialchars($docentData['klas']); ?>">
+        </div>
+        <div class="form-group">
+            <label for="password">Password (leave blank to keep current password)</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
         <button type="submit" class="btn btn-primary" name="editDocent">Save changes</button>

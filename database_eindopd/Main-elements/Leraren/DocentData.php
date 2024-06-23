@@ -12,7 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addDocent'])) {
     $naam = $_POST['naam'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $docent->insertDocent($naam, $email, $password);
+    $klas = $_POST['klas'];
+    $docent->insertDocent($naam, $email, $password, $klas);
 }
 
 // Handle form submission for deleting a docent
@@ -45,6 +46,10 @@ $allDocenten = $docent->selectDocent();
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
+        <div class="form-group">
+            <label for="klas">klas</label>
+            <input type="text" class="form-control" id="klas" name="klas" required>
+        </div>
         <button type="submit" class="btn btn-primary" name="addDocent">Add Docent</button>
     </form>
 
@@ -56,7 +61,8 @@ $allDocenten = $docent->selectDocent();
                 <th>Gebruiker ID</th>
                 <th>Naam</th>
                 <th>Email</th>
-                <th>Actions</th>
+                <th>Klas</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -65,11 +71,15 @@ $allDocenten = $docent->selectDocent();
                     <td><?php echo htmlspecialchars($docent['gebruiker_id']); ?></td>
                     <td><?php echo htmlspecialchars($docent['naam']); ?></td>
                     <td><?php echo htmlspecialchars($docent['email']); ?></td>
+                    <td><?php echo htmlspecialchars($docent['klas']); ?></td>
+                    
                     <td>
                         <a href="EditDocent.php?gebruiker_id=<?php echo $docent['gebruiker_id']; ?>" class="btn btn-warning">Edit</a>
+
                         <form method="post" action="" style="display:inline;">
                             <input type="hidden" name="gebruiker_id" value="<?php echo $docent['gebruiker_id']; ?>">
-                            <button type="submit" class="btn btn-danger" name="deleteDocent">Delete</button>
+
+                            <a href="DeleteDocenten.php?gebruiker_id=<?php echo $docent['gebruiker_id']; ?>" class="btn btn-danger">Delete</a>
                         </form>
                     </td>
                 </tr>
