@@ -1,5 +1,5 @@
 <?php
-
+require_once '../../Db_connection.php';
 class Student {
     private $db;
 
@@ -9,11 +9,14 @@ class Student {
 
     public function insertStudent($student_id, $klas_id, $naam, $achternaam, $email, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        return $this->db->exec("INSERT INTO studenten (student_id, klas_id, naam, achternaam, email, password_hash) VALUES (?, ?, ?, ?, ?, ?)", [$student_id, $klas_id, $naam, $achternaam, $email, $hashedPassword]);
+        return $this->db->exec("INSERT INTO studenten (student_id, klas_id, naam, achternaam, email, password) VALUES (?, ?, ?, ?, ?, ?)", [$student_id, $klas_id, $naam, $achternaam, $email, $hashedPassword]);
     }
 
     public function selectStudent($student_id) {
         return $this->db->exec("SELECT * FROM studenten WHERE student_id = ?", [$student_id]);
+    }
+    public function getAllClasses() {
+        return $this->db->query("SELECT * FROM klassen");
     }
 
     public function editStudent($student_id, $naam = null, $email = null, $password = null) {

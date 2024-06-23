@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result) {
             // Student inserted successfully
             $_SESSION['success_message'] = 'Student inserted successfully.';
-            header('Location: students.php'); // Redirect to students list or another page
-            exit();
+            header('Location: StudentData.php'); // Redirect to students list or another page
+            exit(); 
         } else {
             $errors[] = 'Failed to insert student. Please try again.';
         }
