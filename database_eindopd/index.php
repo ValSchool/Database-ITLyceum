@@ -20,4 +20,5 @@ include_once('../database_eindopd/includes/header.php');
     <p>Your role is: <?php echo htmlspecialchars($rol); ?></p>
 </div>
 
+
 <?php include_once('../database_eindopd/includes/footer.php'); ?>

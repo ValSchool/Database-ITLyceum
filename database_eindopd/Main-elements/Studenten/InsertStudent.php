@@ -9,13 +9,12 @@ $myDb = new DB('itlyceum'); // Adjust the database name ('itlyceum') as per your
 $student = new Student($myDb); // Create instance of Student class
 
 // Variables to store form data and errors
-$student_id = $klas_id = $naam = $achternaam = $email = $password = '';
+$klas_id = $naam = $achternaam = $email = $password = '';
 $errors = [];
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize and validate inputs (you can add more validation as needed)
-    $student_id = $_POST['student_id'];
     $klas_id = $_POST['klas_id'];
     $naam = $_POST['naam'];
     $achternaam = $_POST['achternaam'];
@@ -23,18 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Example basic validation (you should add more specific validation as per your requirements)
-    if (empty($student_id)) {
-        $errors[] = 'Student ID is required.';
-    }
+   // if (empty($student_id)) {
+    //    $errors[] = 'Student ID is required.';
+    //}
     if (empty($naam)) {
         $errors[] = 'Name is required.';
     }
     if (empty($achternaam)) {
         $errors[] = 'Last name is required.';
     }
-    if (empty($email)) {
-        $errors[] = 'Email is required.';
-    }
+   // if (empty($email)) {
+      //  $errors[] = 'Email is required.';
+    //}
     if (empty($password)) {
         $errors[] = 'Password is required.';
     }
@@ -42,12 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // If no errors, insert the student into database
     if (empty($errors)) {
         // Call insertStudent method from Student class
-        $result = $student->insertStudent($student_id, $klas_id, $naam, $achternaam, $email, $password);
+        $result = $student->insertStudent($klas_id, $naam, $achternaam, $email, $password);
 
         if ($result) {
             // Student inserted successfully
             $_SESSION['success_message'] = 'Student inserted successfully.';
-            header('Location: students.php'); // Redirect to students list or another page
+            header('Location: StudentData.php'); // Redirect to students list or another page
             exit();
         } else {
             $errors[] = 'Failed to insert student. Please try again.';
@@ -56,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-
+<?php include_once('../../includes/header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,10 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 <?php endif; ?>
                 <form method="POST">
-                    <div class="form-group">
-                        <label for="student_id">Student ID:</label>
-                        <input type="text" class="form-control" id="student_id" name="student_id" value="<?php echo htmlspecialchars($student_id); ?>">
-                    </div>
                     <div class="form-group">
                         <label for="klas_id">Class ID:</label>
                         <input type="text" class="form-control" id="klas_id" name="klas_id" value="<?php echo htmlspecialchars($klas_id); ?>">

@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editKlas'])) {
     $klas_id = $_POST['klas_id'];
     $naam = $_POST['naam'];
     $mentor_id = $_POST['mentor_id'];
-    $klassen->editKlas($klas_id, $naam, $mentor_id);
+    $klassen->editKlas($klas_id, $naam);
 }
 
 // Handle form submission for deleting a class
@@ -33,7 +33,15 @@ $allKlassen = $klassen->selectKlassen();
 ?>
 
 <?php include_once('../../includes/header.php'); ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
 <div class="container">
     <h1>Klas Management</h1>
 
@@ -70,12 +78,7 @@ $allKlassen = $klassen->selectKlassen();
                     <td><?php echo htmlspecialchars($klas['mentor_id']); ?></td>
                     <td>
                         <!-- Edit and Delete forms -->
-                        <form method="post" action="" style="display:inline;">
-                            <input type="hidden" name="klas_id" value="<?php echo $klas['klas_id']; ?>">
-                            <input type="hidden" name="naam" value="<?php echo $klas['naam']; ?>">
-                            <input type="hidden" name="mentor_id" value="<?php echo $klas['mentor_id']; ?>">
-                            <button type="submit" class="btn btn-warning" name="editKlas">Edit</button>
-                        </form>
+                        <a href="EditKlas.php?klas_id=<?php echo $klas['klas_id']; ?>" class="btn btn-warning">Edit</a>
                         <form method="post" action="" style="display:inline;">
                             <input type="hidden" name="klas_id" value="<?php echo $klas['klas_id']; ?>">
                             <button type="submit" class="btn btn-danger" name="deleteKlas">Delete</button>
@@ -86,5 +89,5 @@ $allKlassen = $klassen->selectKlassen();
         </tbody>
     </table>
 </div>
-
+</body>
 <?php include_once('../../includes/footer.php'); ?>

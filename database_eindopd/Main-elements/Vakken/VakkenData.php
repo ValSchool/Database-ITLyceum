@@ -10,16 +10,16 @@ $vakken = new Vakken($myDb);
 // Handle form submission for adding a new vak
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addVak'])) {
     $naam = $_POST['naam'];
-    $docent_id = $_POST['docent_id'];
-    $vakken->insertVak($naam, $docent_id);
+    $gebruiker_id = $_POST['gebruiker_id'];
+    $vakken->insertVak($naam, $gebruiker_id);
 }
 
 // Handle form submission for editing a vak
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editVak'])) {
     $vak_id = $_POST['vak_id'];
     $naam = $_POST['naam'];
-    $docent_id = $_POST['docent_id'];
-    $vakken->editVak($vak_id, $naam, $docent_id);
+    $gebruiker_id = $_POST['gebruiker_id'];
+    $vakken->editVak($vak_id, $naam, $gebruiker_id);
 }
 
 // Handle form submission for deleting a vak
@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteVak'])) {
 // Fetch the latest data from the database
 $allVakken = $vakken->selectVakken();
 ?>
-
 
 <?php include_once('../../includes/header.php'); ?>
 
@@ -45,10 +44,7 @@ $allVakken = $vakken->selectVakken();
             <label for="naam">Vak Naam</label>
             <input type="text" class="form-control" id="naam" name="naam" required>
         </div>
-        <div class="form-group">
-            <label for="docent_id">Docent ID</label>
-            <input type="number" class="form-control" id="docent_id" name="docent_id" required>
-        </div>
+    
         <button type="submit" class="btn btn-primary" name="addVak">Add Vak</button>
     </form>
 
@@ -59,7 +55,6 @@ $allVakken = $vakken->selectVakken();
             <tr>
                 <th>Vak ID</th>
                 <th>Vak Naam</th>
-                <th>Docent ID</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -68,18 +63,18 @@ $allVakken = $vakken->selectVakken();
                 <tr>
                     <td><?php echo htmlspecialchars($vak['vak_id']); ?></td>
                     <td><?php echo htmlspecialchars($vak['naam']); ?></td>
-                    <td><?php echo htmlspecialchars($vak['docent_id']); ?></td>
+             
                     <td>
                         <!-- Edit and Delete forms -->
-                        <form method="post" action="" style="display:inline;">
+                        <form method="post" action="">
                             <input type="hidden" name="vak_id" value="<?php echo $vak['vak_id']; ?>">
                             <input type="hidden" name="naam" value="<?php echo $vak['naam']; ?>">
-                            <input type="hidden" name="docent_id" value="<?php echo $vak['docent_id']; ?>">
+             
                             <button type="submit" class="btn btn-warning" name="editVak">Edit</button>
                         </form>
-                        <form method="post" action="" style="display:inline;">
+                        <form method="post" action="">
                             <input type="hidden" name="vak_id" value="<?php echo $vak['vak_id']; ?>">
-                            <button type="submit" class="btn btn-danger" name="deleteVak">Delete</button>
+                            <button type="submit" class="btn btn-danger" name="deleteVak" onclick="return confirm('Are you sure you want to delete this vak?');">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -87,4 +82,5 @@ $allVakken = $vakken->selectVakken();
         </tbody>
     </table>
 </div>
+
 <?php include_once('../../includes/footer.php'); ?>
