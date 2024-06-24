@@ -1,4 +1,5 @@
 <?php
+//database_eindopd/Main-elements/Login/logout.php
 // Start the session
 session_start();
 
@@ -11,4 +12,4 @@ session_destroy();
 // Redirect the user to the login page
 header("Location: /database_eindopd/Main-elements/Login/loginPage.php");
 exit;
-?>
+ 

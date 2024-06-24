@@ -20,6 +20,12 @@ class Klassen {
     {
         return $this->db->exec("SELECT * FROM klassen WHERE klas_id = klas_id")->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function selectStudentenInKlas($klas_id)
+    {
+        return $this->db->exec("SELECT * FROM studenten WHERE klas_id = ?", [$klas_id])->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
     public function editKlas($klas_id, $naam, ) {
         return $this->db->exec("UPDATE klassen SET naam = ? WHERE klas_id = ?", [$naam,  $klas_id]);
     }

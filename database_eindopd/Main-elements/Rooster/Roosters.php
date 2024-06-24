@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selectKlas'])) {
                     <th>Datum</th>
                     <th>Tijd</th>
                     <th>Vak ID</th>
-                    <th>Gebruiker ID</th>
+                    <th>Docent</th>
                 </tr>
             </thead>
             <tbody>

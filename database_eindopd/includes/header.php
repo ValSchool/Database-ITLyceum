@@ -59,42 +59,49 @@
         <div class="logo">IT Lyceum</div>
         <ul id="navLinks">
             <li><a href="/database_eindopd/index.php" style="color: white; text-decoration: none;">Home</a></li>
-            <!-- Additional navigation items will be injected here by JavaScript -->
+            <?php
+                // Simulate the logged-in state and user role
+                $isLoggedIn = false; // Change to false to simulate logged-out state
+                $userRole = "docent"; // Change to "roostermaker", "docent", or other roles to simulate different user roles
+
+                if ($isLoggedIn) {
+                    if ($userRole === "manager") {
+                        echo '<li><a href="/database_eindopd/Main-elements/Leraren/DocentData.php" style="color: white; text-decoration: none;">Docenten</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Rooster/RoosterData.php" style="color: white; text-decoration: none;">RoosterData</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
+                    } elseif ($userRole === "roostermaker") {
+                        echo '<li><a href="/database_eindopd/Main-elements/Rooster/RoosterData.php" style="color: white; text-decoration: none;">RoosterData</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Rooster/Roosters.php" style="color: white; text-decoration: none;">Roosters</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
+                    } elseif ($userRole === "docent") {
+                        echo '<li><a href="/database_eindopd/Main-elements/Leraren/DocentData.php" style="color: white; text-decoration: none;">Docenten</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Klassen/KlassenData.php" style="color: white; text-decoration: none;">Klassen</a>';
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Klassen/KlassenData.php" style="color: white; text-decoration: none;">KlassenData</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Klassen/AddKlassen.php" style="color: white; text-decoration: none;">AddKlassen</a></li>';
+                        echo '  </ul>';
+                        echo '</li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Vakken/VakkenData.php" style="color: white; text-decoration: none;">Vakken</a>';
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Vakken/VakkenData.php" style="color: white; text-decoration: none;">VakkenData</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Vakken/AddVakken.php" style="color: white; text-decoration: none;">AddVakken</a></li>';
+                        echo '  </ul>';
+                        echo '</li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Studenten/StudentData.php" style="color: white; text-decoration: none;">Student</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
+                    } else {
+                        echo '<li><a href="/database_eindopd/Main-elements/Rooster/Roosters.php" style="color: white; text-decoration: none;">Roosters</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
+                    }
+                } else {
+                    echo '<li><a href="/database_eindopd/Main-elements/Login/loginPage.php" style="color: white; text-decoration: none;">Login</a></li>';
+                    echo '<li><a href="/database_eindopd/Main-elements/Register/RegisterPage.php" style="color: white; text-decoration: none;">Register</a></li>';
+                }
+            ?>
         </ul>
     </div>
- 
-    <script>
-        // Simulate the role of the user (manager, roostermaker, docent, undefined)
-        var userRole = 'undefined'; // Change the role here as needed
-
-        var navLinks = document.getElementById('navLinks');
-
-        if (userRole === 'manager') {
-            addNavigationItem('Docenten', '/database_eindopd/Main-elements/Leraren/DocentData.php');
-            addNavigationItem('RoosterData', '/database_eindopd/Main-elements/Rooster/RoosterData.php');
-            addNavigationItem('Profiel', '/database_eindopd/Main-elements/Gebruiker/GebruikerData.php');
-            addNavigationItem('Logout', '/database_eindopd/Main-elements/Login/logout.php');
-        } else if (userRole === 'roostermaker') {
-            addNavigationItem('Roosters', '/database_eindopd/Main-elements/Rooster/Roosters.php');
-            addNavigationItem('RoosterData', '/database_eindopd/Main-elements/Rooster/RoosterData.php');
-            addNavigationItem('Profiel', '/database_eindopd/Main-elements/Gebruiker/GebruikerData.php');
-            addNavigationItem('Logout', '/database_eindopd/Main-elements/Login/logout.php');
-        } else if (userRole === 'docent') {
-            addNavigationItem('Docenten', '/database_eindopd/Main-elements/Leraren/DocentData.php');
-            addNavigationItem('Klassen', '/database_eindopd/Main-elements/Klassen/KlassenData.php');
-            addNavigationItem('Vakken', '/database_eindopd/Main-elements/Vakken/VakkenData.php');
-            addNavigationItem('Profiel', '/database_eindopd/Main-elements/Gebruiker/GebruikerData.php');
-            addNavigationItem('Student', '/database_eindopd/Main-elements/Studenten/StudentData.php');
-            addNavigationItem('Roosters', '/database_eindopd/Main-elements/Rooster/Roosters.php');
-            addNavigationItem('Logout', '/database_eindopd/Main-elements/Login/logout.php');
-        } else { // Default or undefined role
-            addNavigationItem('Roosters', '/database_eindopd/Main-elements/Rooster/Roosters.php');
-            addNavigationItem('Logout', '/database_eindopd/Main-elements/Login/logout.php');
-        }
-
-        function addNavigationItem(label, link) {
-            navLinks.innerHTML += '<li><a href="' + link + '" style="color: white; text-decoration: none;">' + label + '</a></li>';
-        }
-    </script>
 </body>
 </html>

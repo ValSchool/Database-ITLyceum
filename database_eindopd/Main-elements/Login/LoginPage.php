@@ -1,4 +1,5 @@
 <?php
+//database_eindopd/Main-elements/Login/loginPage.php
 // Start the session
 session_start();
 
