@@ -21,6 +21,7 @@ $students = $student->selectStudenten();
     <title>Student Data</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="row">
@@ -31,7 +32,9 @@ $students = $student->selectStudenten();
                         <?php echo $_SESSION['success_message']; ?>
                     </div>
                     <?php unset($_SESSION['success_message']); ?>
+            
                 <?php endif; ?>
+                <a href="invoegenDocenten.php" class="btn btn-warning">Student Invoegen</a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -52,8 +55,8 @@ $students = $student->selectStudenten();
                                 <td><?php echo htmlspecialchars($student['achternaam']); ?></td>
                                 <td><?php echo htmlspecialchars($student['email']); ?></td>
                                 <td>
-                                    <a href="edit_student.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete_student.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
+                                <a href="EditStudent.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-primary">Edit</a>
+                                <a href="DeleteStudent.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
