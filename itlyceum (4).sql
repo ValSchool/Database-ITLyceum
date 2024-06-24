@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Gegenereerd op: 21 jun 2024 om 10:42
+-- Gegenereerd op: 24 jun 2024 om 13:32
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -61,8 +61,8 @@ CREATE TABLE `gebruikers` (
 INSERT INTO `gebruikers` (`gebruiker_id`, `naam`, `email`, `password`, `rol`) VALUES
 (1, 'John Doe', 'john@example.com', '$2y$10$PRuejmF7RM7d9KdIkeA6te701vVdD3IZZneDHL6QdETGn.2tNpXJ2', 'manager'),
 (2, 'Jane Smith', 'jane@example.com', '$2y$10$6kQ0nJMOiGHDpPhLtn1V7.E2purhVQ0dWhGyW31GrEF7T5eYa/8uO', 'roostermaker'),
-(3, 'Robert brohnson', 'robert@example.com', '$2y$10$2x7VwL2kdQJdSOi2ucu2r.eOqAnF7tx41dGfQVEGj.NWazO4fNRN6', 'docent'),
-(6, 'Merlin James', 'Merlin@gmail.nl', '$2y$10$1Rt9MUjy9daiBG9Brz38mO0qHLaTnC6i/sjoGrkx3YTHRMz3BEawu', 'docent');
+(3, 'Robert brohnsons', 'robert@example.com', '$2y$10$2x7VwL2kdQJdSOi2ucu2r.eOqAnF7tx41dGfQVEGj.NWazO4fNRN6', 'docent'),
+(10, 'johnson johnson', 'johnsonjohnson@gmail.com', '$2y$10$.qIz5ta2dq24voAmnIq0cuKbDpvH3jO/Z7j.xyma.Z4vEtC6EACHG', 'docent');
 
 --
 -- Triggers `gebruikers`
@@ -115,7 +115,9 @@ CREATE TABLE `klassen` (
 INSERT INTO `klassen` (`klas_id`, `naam`, `mentor_id`) VALUES
 (100001, 'OITIOSD2A', 3),
 (100002, 'OITIOSD2B', 3),
-(100003, 'OITIOSD2C', 3);
+(100003, 'OITIOSD2C', 3),
+(100006, 'OITIOSD2D12', 10),
+(100008, 'OITIOSD2F', 10);
 
 --
 -- Triggers `klassen`
@@ -151,12 +153,8 @@ CREATE TABLE `roosters` (
 --
 
 INSERT INTO `roosters` (`rooster_id`, `klas_id`, `weeknummer`, `datum`, `tijd`, `vak_id`, `gebruiker_id`) VALUES
-(2, 100002, 25, '2024-06-18', '09:30:00', 1, 3),
-(3, 100002, 25, '2024-06-18', '09:30:00', 1, 3),
 (4, 100002, 26, '2024-06-19', '15:22:00', 3, 3),
-(5, 100002, 26, '2024-06-27', '14:19:00', 1, 3),
-(7, 100001, 26, '2024-06-07', '10:25:00', 2, 3),
-(8, 100003, 26, '2024-06-15', '10:28:00', 2, 3);
+(9, 100003, 26, '2024-06-01', '23:55:00', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -180,7 +178,7 @@ CREATE TABLE `studenten` (
 --
 
 INSERT INTO `studenten` (`student_id`, `gebruiker_id`, `klas_id`, `naam`, `achternaam`, `email`, `password_hash`, `mentor_id`) VALUES
-(2165302, NULL, 100001, 'John', 'Doe', '2165302@talnet.nl', 'password123', 3),
+(2165302, NULL, 100002, 'John', 'Doer', '2165302@talnet.nl', 'password123', 3),
 (2165303, NULL, 100001, 'Jane', 'Smith', '2165303@talnet.nl', 'password456', 3),
 (2165311, NULL, 100003, 'dejah', 'marshall', '2165311@talnet.nl', '$2y$10$qltUPf9rxhHBHZ5mjE7oy.kCrY7jhC7vZHDQ92k3hwJqDSGaWeU0q', 3),
 (2165335, NULL, 100003, 'gt', 'tombe', '2165312@talnet.nl', '$2y$10$pOplBm6IXy2ORYIV8bQzn.H/Txt84VHQtIR8T1oDe4HWpetVOvqNK', 3);
@@ -218,24 +216,23 @@ DELIMITER ;
 
 CREATE TABLE `vakken` (
   `vak_id` int(11) NOT NULL,
-  `naam` varchar(100) NOT NULL
+  `naam` varchar(100) NOT NULL,
+  `gebruiker_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `vakken`
 --
 
-INSERT INTO `vakken` (`vak_id`, `naam`) VALUES
-(1, 'Mathematics'),
-(2, 'Physics'),
-(3, 'Chemistry'),
-(4, 'Biology'),
-(5, 'English'),
-(6, 'History'),
-(7, 'Computer Science'),
-(8, 'Software Engineering'),
-(9, 'Database Management'),
-(10, 'Web Development');
+INSERT INTO `vakken` (`vak_id`, `naam`, `gebruiker_id`) VALUES
+(3, 'Chemistry', 3),
+(4, 'Biology', 10),
+(6, 'History', NULL),
+(8, 'Software Engineering', NULL),
+(14, '12', 10),
+(18, '12', 10),
+(19, '12', 10),
+(20, '12', 10);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -293,7 +290,8 @@ ALTER TABLE `studenten`
 -- Indexen voor tabel `vakken`
 --
 ALTER TABLE `vakken`
-  ADD PRIMARY KEY (`vak_id`);
+  ADD PRIMARY KEY (`vak_id`),
+  ADD KEY `fk_vakken_gebruiker` (`gebruiker_id`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
@@ -303,7 +301,7 @@ ALTER TABLE `vakken`
 -- AUTO_INCREMENT voor een tabel `gebruikers`
 --
 ALTER TABLE `gebruikers`
-  MODIFY `gebruiker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `gebruiker_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT voor een tabel `gesprekken`
@@ -315,25 +313,25 @@ ALTER TABLE `gesprekken`
 -- AUTO_INCREMENT voor een tabel `klassen`
 --
 ALTER TABLE `klassen`
-  MODIFY `klas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100004;
+  MODIFY `klas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100009;
 
 --
 -- AUTO_INCREMENT voor een tabel `roosters`
 --
 ALTER TABLE `roosters`
-  MODIFY `rooster_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `rooster_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT voor een tabel `studenten`
 --
 ALTER TABLE `studenten`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2165336;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2165338;
 
 --
 -- AUTO_INCREMENT voor een tabel `vakken`
 --
 ALTER TABLE `vakken`
-  MODIFY `vak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `vak_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
@@ -375,6 +373,12 @@ ALTER TABLE `studenten`
   ADD CONSTRAINT `fk_studenten_mentor` FOREIGN KEY (`mentor_id`) REFERENCES `gebruikers` (`gebruiker_id`),
   ADD CONSTRAINT `studenten_ibfk_1` FOREIGN KEY (`gebruiker_id`) REFERENCES `gebruikers` (`gebruiker_id`),
   ADD CONSTRAINT `studenten_ibfk_2` FOREIGN KEY (`klas_id`) REFERENCES `klassen` (`klas_id`);
+
+--
+-- Beperkingen voor tabel `vakken`
+--
+ALTER TABLE `vakken`
+  ADD CONSTRAINT `fk_vakken_gebruiker` FOREIGN KEY (`gebruiker_id`) REFERENCES `gebruikers` (`gebruiker_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
