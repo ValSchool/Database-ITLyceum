@@ -1,4 +1,5 @@
 <?php
+//database_eindopd/Main-elements/Gebruiker/Gebruiker.php
 class Gebruiker {
     private $db;
 
@@ -20,5 +21,10 @@ class Gebruiker {
         ];
         return $this->db->exec($sql, $placeholders);
     }
+    public function selectAllGebruikers() {
+        $sql = "SELECT * FROM gebruikers";
+        return $this->db->exec($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     
 }

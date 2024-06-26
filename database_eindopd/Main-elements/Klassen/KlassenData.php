@@ -2,6 +2,7 @@
 session_start();
 
 require_once 'Klassen.php';
+require_once '../Leraren/Docent.php';
 require_once '../../Db_connection.php';
 
 $myDb = new DB('itlyceum');
@@ -25,6 +26,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Fetch students in the selected class
         $students_in_klas = $klassen->selectStudentenInKlas($klas_id);
+    }
+    
+    // Handle form submission for koppelMentor button
+    if (isset($_POST['koppelMentor'])) {
+        $klas_id = $_POST['klas_id'];
+        $docentNaam = 'Your Docent Name'; // Replace with actual docent name from form or session
+        $result = $Docent->koppelDocentAlsMentor($docentNaam, $klas_id);
+        // Handle result as needed
+        if ($result) {
+            // Success message or redirect
+            header("Location: your_success_page.php");
+            exit;
+        } else {
+            // Error handling
+            echo "Failed to link docent as mentor.";
+        }
     }
 }
 ?>
@@ -61,6 +78,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <form method="post" action="">
                             <input type="hidden" name="klas_id" value="<?php echo $klas['klas_id']; ?>">
                             <button type="submit" class="btn btn-primary" name="selectKlas">Select</button>
+                            
+                            <!-- Check if class has no mentor to show the button -->
+                            <?php if (!$klassen->klasHeeftMentor($klas['klas_id'])) : ?>
+                                <button type="submit" class="btn btn-success ml-2" name="koppelMentor">Koppel Docent Als Mentor</button>
+                            <?php endif; ?>
                         </form>
                     </td>
                 </tr>

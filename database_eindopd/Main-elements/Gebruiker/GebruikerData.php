@@ -61,6 +61,7 @@ if (isset($_SESSION['email'])) {
     } else {
         // Display error if gebruiker data is not found
         ?>
+        
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -89,6 +90,7 @@ if (isset($_SESSION['email'])) {
 } else {
     // Handle case where email is not set in session
     ?>
+    
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -117,3 +119,4 @@ if (isset($_SESSION['email'])) {
 
 
 ?>
+<?php include_once('../../includes/footer.php'); ?>

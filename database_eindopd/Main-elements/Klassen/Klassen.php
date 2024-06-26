@@ -32,6 +32,22 @@ class Klassen {
 
     public function deleteKlas($klas_id) {
         return $this->db->exec("DELETE FROM klassen WHERE klas_id = ?", [$klas_id]);
+    }public function klasHeeftMentor($klasId) {
+        $sql = "SELECT mentor_id FROM klassen WHERE klas_id = $klasId";
+        $result = $this->db->exec($sql);
+        
+        if ($result === false) {
+            // Handle error if exec() fails
+            return false;
+        }
+        
+        // Fetch the result manually
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        
+        // Check if mentor_id exists
+        return !empty($row['mentor_id']);
     }
+    
+    
 }
 

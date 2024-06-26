@@ -57,10 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateVak'])) {
         </div>
     <?php endif; ?>
 
-    <form method="post" action="">
+    <form method="post" action="editGesprek.php?gesprek_id=<?= htmlspecialchars($gesprek_id) ?>">
         <div class="form-group">
-            <label for="naam">Vak Naam</label>
-            <input type="text" class="form-control" id="naam" name="naam" value="<?php echo htmlspecialchars($vak_details['naam'] ?? ''); ?>" required>
+            <label for="Datum">Datum</label>
+            <input type="text" class="form-control" id="naam" name="na  am" value="<?php echo htmlspecialchars($vak_details['naam'] ?? ''); ?>" required>
         </div>
         <div class="form-group">
             <label for="gebruiker_id">Gebruiker ID</label>

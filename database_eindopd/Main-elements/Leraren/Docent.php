@@ -49,5 +49,15 @@ class Docent {
     public function deleteDocent($gebruiker_id) {
         return $this->db->exec("DELETE FROM gebruikers WHERE gebruiker_id = ?", [$gebruiker_id]);
     }
+    public function koppelDocentAlsMentor($Naam, $klasId) {
+        $sql = "UPDATE klassen k 
+                JOIN gebruikers g ON k.mentor_id = g.gebruiker_id 
+                SET k.mentor_id = g.gebruiker_id
+                WHERE g.naam = :naam AND g.rol = 'docent'
+                AND k.klas_id = :klas_id";
+        
+        return $this->db->prepare($sql)->execute([':naam' => $Naam, ':klas_id' => $klasId]);
+    }
+    
     
 }

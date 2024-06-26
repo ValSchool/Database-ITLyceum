@@ -65,3 +65,4 @@ $students = $student->selectStudenten();
     </div>
 </body>
 </html>
+<?php include_once('../../includes/footer.php'); ?>

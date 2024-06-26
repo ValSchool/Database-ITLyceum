@@ -61,19 +61,29 @@
             <li><a href="/database_eindopd/index.php" style="color: white; text-decoration: none;">Home</a></li>
             <?php
                 // Simulate the logged-in state and user role
-                $isLoggedIn = false; // Change to false to simulate logged-out state
-                $userRole = "docent"; // Change to "roostermaker", "docent", or other roles to simulate different user roles
+                $isLoggedIn = true; // Change to false to simulate logged-out state
+                $userRole = "docent"; // Change to "roostermaker", "docent", "undefined","manager", 
 
                 if ($isLoggedIn) {
                     if ($userRole === "manager") {
                         echo '<li><a href="/database_eindopd/Main-elements/Leraren/DocentData.php" style="color: white; text-decoration: none;">Docenten</a></li>';
                         echo '<li><a href="/database_eindopd/Main-elements/Rooster/RoosterData.php" style="color: white; text-decoration: none;">RoosterData</a></li>';
-                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a>';
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">profiel</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gebruiker/DisplayGebruikers.php" style="color: white; text-decoration: none;">collegas</a></li>';
+                        echo '  </ul>';
+                        echo '</li>';
                         echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
                     } elseif ($userRole === "roostermaker") {
                         echo '<li><a href="/database_eindopd/Main-elements/Rooster/RoosterData.php" style="color: white; text-decoration: none;">RoosterData</a></li>';
                         echo '<li><a href="/database_eindopd/Main-elements/Rooster/Roosters.php" style="color: white; text-decoration: none;">Roosters</a></li>';
-                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a>';
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">profiel</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gebruiker/DisplayGebruikers.php" style="color: white; text-decoration: none;">collegas</a></li>';
+                        echo '  </ul>';
+                        echo '</li>';
                         echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
                     } elseif ($userRole === "docent") {
                         echo '<li><a href="/database_eindopd/Main-elements/Leraren/DocentData.php" style="color: white; text-decoration: none;">Docenten</a></li>';
@@ -89,8 +99,24 @@
                         echo '      <li><a href="/database_eindopd/Main-elements/Vakken/AddVakken.php" style="color: white; text-decoration: none;">AddVakken</a></li>';
                         echo '  </ul>';
                         echo '</li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gesprekken/GesprekkenData.php" style="color: white; text-decoration: none;">Gesprek</a>'; 
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gesprekken/GesprekkenData.php" style="color: white; text-decoration: none;">Gesprekken</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gesprekken/AddGesprek.php" style="color: white; text-decoration: none;">AddGesprekken</a></li>';
+                        echo '  </ul>';
+                        echo '</li>';
                         echo '<li><a href="/database_eindopd/Main-elements/Studenten/StudentData.php" style="color: white; text-decoration: none;">Student</a></li>';
-                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a></li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">Profiel</a>';
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gebruiker/GebruikerData.php" style="color: white; text-decoration: none;">profiel</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Gebruiker/DisplayGebruikers.php" style="color: white; text-decoration: none;">collegas</a></li>';
+                        echo '  </ul>';
+                        echo '</li>';
+                        echo '<li><a href="/database_eindopd/Main-elements/Klassen/KlassenData.php" style="color: white; text-decoration: none;">Klassen</a>';
+                        echo '  <ul>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Klassen/KlassenData.php" style="color: white; text-decoration: none;">KlassenData</a></li>';
+                        echo '      <li><a href="/database_eindopd/Main-elements/Klassen/AddKlassen.php" style="color: white; text-decoration: none;">AddKlassen</a></li>';
+                        echo '  </ul>';
                         echo '<li><a href="/database_eindopd/Main-elements/Login/logout.php" style="color: white; text-decoration: none;">Logout</a></li>';
                     } else {
                         echo '<li><a href="/database_eindopd/Main-elements/Rooster/Roosters.php" style="color: white; text-decoration: none;">Roosters</a></li>';
