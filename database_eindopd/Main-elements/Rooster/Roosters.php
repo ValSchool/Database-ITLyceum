@@ -1,24 +1,15 @@
 <?php
 session_start();
+//dependencies
+require_once '../Rooster/Rooster.php';
+require_once '../../Db_connection.php';
+require_once '../Klassen/Klassen.php';
+require_once '../Vakken/Vakken.php'; 
 
-require_once '../Rooster/Rooster.php'; // Assuming Rooster class is defined here
-require_once '../../Db_connection.php'; // Adjust path as per your directory structure
-require_once '../Klassen/Klassen.php'; // Assuming Klassen class is defined here
-require_once '../Vakken/Vakken.php'; // Assuming Vakken class is defined here
-
-// Initialize database connection
-try {
-    // Adjust these parameters with your actual database credentials
-    $db = new PDO('mysql:host=localhost;dbname=your_dbname', 'your_username', 'your_password');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-    exit;
-}
-
-$rooster = new Rooster($db);
-$klassen = new Klassen($db);
-$vakken = new Vakken($db);
+//class definitions
+$Rooster = new Rooster($myDb);
+$klassen = new Klassen($myDb);
+$vakken = new Vakken($myDb);
 
 // Fetch all classes for the dropdown
 $allKlassen = $klassen->selectKlassen();
@@ -31,25 +22,31 @@ $allRoosters = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selectKlas'])) {
     $klas_id = $_POST['klas_id'];
     $_SESSION['selectedKlas'] = $klas_id; // Store selected class ID in session for use later
-    $selectedKlas = $klassen->selectKlasById($klas_id); // Implement this method in Klassen class to fetch class details
+    $selectedKlas = $klassen->selectKlas($klas_id); // Implement this method in Klassen class to fetch class details
     if (!$selectedKlas) {
         die("Class not found.");
     }
     
     // Fetch all roosters for the selected class
-    $allRoosters = $rooster->selectRoostersByKlas($klas_id); // Implement this method in Rooster class
+    $allRoosters = $Rooster->selectRoostersByKlas($klas_id); // Implement this method in Rooster class
 }
 
 // Handle form submission for viewing a specific student's roster
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selectStudent'])) {
-    $gebruiker_id = $_POST['gebruiker_id'];
-    $allRoosters = $rooster->selectRoostersByStudent($gebruiker_id); // Implement this method in Rooster class
-}
+
 
 ?>
 
 <?php include_once('../../includes/header.php'); ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruiker Data</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
 <div class="container">
     <h1>Rooster Management</h1>
 
@@ -67,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selectStudent'])) {
     </form>
 
     <?php if ($selectedKlas) : ?>
-        <h2>Class: <?php echo htmlspecialchars($selectedKlas['naam']); ?></h2>
+     
 
         <!-- View Roster for Class -->
         <h3>All Roosters for Class</h3>
@@ -79,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selectStudent'])) {
                     <th>Datum</th>
                     <th>Tijd</th>
                     <th>Vak ID</th>
-                    <th>Gebruiker ID</th>
+                    <th>Docent</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,15 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selectStudent'])) {
             </tbody>
         </table>
 
-        <!-- Select Student Form -->
-        <form method="post" action="">
-            <div class="form-group">
-                <label for="gebruiker_id">Select Student (Gebruiker ID)</label>
-                <input type="number" class="form-control" id="gebruiker_id" name="gebruiker_id" required>
-            </div>
-            <button type="submit" class="btn btn-primary" name="selectStudent">View Student's Rooster</button>
-        </form>
+        
     <?php endif; ?>
 </div>
-
+</body>
 <?php include_once('../../includes/footer.php'); ?>

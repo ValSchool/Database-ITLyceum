@@ -12,8 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addDocent'])) {
     $naam = $_POST['naam'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $klas = $_POST['klas'];
-    $docent->insertDocent($naam, $email, $password, $klas);
+    $docent->insertDocent($naam, $email, $password);
 }
 
 // Handle form submission for deleting a docent
@@ -27,7 +26,15 @@ $allDocenten = $docent->selectDocent();
 ?>
 
 <?php include_once('../../includes/header.php'); ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
 <div class="container">
     <h1>Docent Management</h1>
 
@@ -46,10 +53,6 @@ $allDocenten = $docent->selectDocent();
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <div class="form-group">
-            <label for="klas">klas</label>
-            <input type="text" class="form-control" id="klas" name="klas" required>
-        </div>
         <button type="submit" class="btn btn-primary" name="addDocent">Add Docent</button>
     </form>
 
@@ -61,8 +64,7 @@ $allDocenten = $docent->selectDocent();
                 <th>Gebruiker ID</th>
                 <th>Naam</th>
                 <th>Email</th>
-                <th>Klas</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -71,15 +73,11 @@ $allDocenten = $docent->selectDocent();
                     <td><?php echo htmlspecialchars($docent['gebruiker_id']); ?></td>
                     <td><?php echo htmlspecialchars($docent['naam']); ?></td>
                     <td><?php echo htmlspecialchars($docent['email']); ?></td>
-                    <td><?php echo htmlspecialchars($docent['klas']); ?></td>
-                    
                     <td>
                         <a href="EditDocent.php?gebruiker_id=<?php echo $docent['gebruiker_id']; ?>" class="btn btn-warning">Edit</a>
-
                         <form method="post" action="" style="display:inline;">
                             <input type="hidden" name="gebruiker_id" value="<?php echo $docent['gebruiker_id']; ?>">
-
-                            <a href="DeleteDocenten.php?gebruiker_id=<?php echo $docent['gebruiker_id']; ?>" class="btn btn-danger">Delete</a>
+                            <button type="submit" class="btn btn-danger" name="deleteDocent">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -87,5 +85,5 @@ $allDocenten = $docent->selectDocent();
         </tbody>
     </table>
 </div>
-
+</body>
 <?php include_once('../../includes/footer.php'); ?>

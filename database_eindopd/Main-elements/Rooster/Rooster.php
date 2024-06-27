@@ -29,10 +29,9 @@ class Rooster {
     
 
     public function selectRoostersByKlas($klas_id) {
-        $sql = "SELECT * FROM roosters WHERE klas_id = :klas_id";
-        $stmt = $this->db->query($sql, PDO::FETCH_ASSOC, [':klas_id' => $klas_id]);
-        return $stmt->fetchAll();
+        return $this->db->exec("SELECT * FROM roosters WHERE klas_id = :klas_id", [':klas_id' => $klas_id]);
     }
+    
     
 
     public function selectRoostersByKlasAndWeek($klas_id, $weeknummer) {

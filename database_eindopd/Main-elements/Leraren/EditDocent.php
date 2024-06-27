@@ -21,9 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editDocent'])) {
     $gebruiker_id = $_POST['gebruiker_id'];
     $naam = !empty($_POST['naam']) ? $_POST['naam'] : null;
     $email = !empty($_POST['email']) ? $_POST['email'] : null;
-    $klas = !empty($_POST['klas']) ? $_POST['klas'] : null;
     $password = !empty($_POST['password']) ? $_POST['password'] : null;
-    $docent->editDocent($gebruiker_id, $naam, $email, $klas, $password);
+    $docent->editDocent($gebruiker_id, $naam, $email, $password);
     header("Location: DocentData.php"); // Redirect back to the main page
     exit();
 }
@@ -31,7 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editDocent'])) {
 ?>
 
 <?php include_once('../../includes/header.php'); ?>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
 <div class="container">
     <h1>Edit Docent</h1>
 
@@ -47,15 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editDocent'])) {
             <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($docentData['email']); ?>">
         </div>
         <div class="form-group">
-            <label for="klas">Klas</label>
-            <input type="text" class="form-control" id="klas" name="klas" value="<?php echo htmlspecialchars($docentData['klas']); ?>">
-        </div>
-        <div class="form-group">
-            <label for="password">Password (leave blank to keep current password)</label>
+            <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
         <button type="submit" class="btn btn-primary" name="editDocent">Save changes</button>
     </form>
 </div>
-
+</body>
 <?php include_once('../../includes/footer.php'); ?>

@@ -12,7 +12,7 @@ $student = new Student($myDb); // Create instance of Student class
 $students = $student->selectStudenten();
 
 ?>
-
+<?php include_once('../../includes/header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,9 +52,10 @@ $students = $student->selectStudenten();
                                 <td><?php echo htmlspecialchars($student['achternaam']); ?></td>
                                 <td><?php echo htmlspecialchars($student['email']); ?></td>
                                 <td>
-                                    <a href="edit_student.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete_student.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
-                                </td>
+    <a href="EditStudent.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+    <a href="DeleteStudent.php?student_id=<?php echo $student['student_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+</td>
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -64,3 +65,4 @@ $students = $student->selectStudenten();
     </div>
 </body>
 </html>
+<?php include_once('../../includes/footer.php'); ?>
